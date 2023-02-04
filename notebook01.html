@@ -34,6 +34,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="notebook01_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="notebook01_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -48,8 +49,56 @@ ul.task-list li input[type="checkbox"] {
 <section id="数理統計学ノート" class="level1">
 <h1>数理統計学ノート</h1>
 <p>ここでは確率と期待値についての記述を行う</p>
-<section id="事象と確率" class="level2">
-<h2 class="anchored" data-anchor-id="事象と確率">事象と確率</h2>
+<section id="確率と確率変数" class="level2">
+<h2 class="anchored" data-anchor-id="確率と確率変数">確率と確率変数</h2>
+<p>実は竹村数理統計では明示的に事象を定義していないというか、<br>
+事象という概念があるものとしてスタートする。<br>
+『統計学実践ワークブック』でもそうなんだけどちょっと気持ちが悪い。<br>
+ここではもう一歩戻って「試行」という概念を導入して整理する。</p>
+<section id="試行と事象" class="level3">
+<h3 class="anchored" data-anchor-id="試行と事象">試行と事象</h3>
+<p>例えば「サイコロをふる」とか「コイントスを行う」というような、<br>
+結果を予測できない不確実な行動を「試行」と呼ぶ。<br>
+その結果、たとえば「4の目が出る」とか「表が出る」とかを「事象」と呼ぶ。<br>
+サイコロの例では分かりやすいが、「1の目が出る」も事象だし、<br>
+「偶数の目が出る」や「3の倍数の目が出る」も事象。<br>
+この辺の整理が公理的確率論の最初らへんにある話。</p>
+<ul>
+<li>事象の集合を「標本空間」 <span class="math inline">\(\Omega\)</span>と表す事がある。<br>
+</li>
+<li><span class="math inline">\(\Omega\)</span> の部分集合族 <span class="math inline">\(\mathcal{B}\)</span> を考えて、そこから<span class="math inline">\([0, 1]\)</span>への写像を確率測度といい、 <span class="math inline">\(P\)</span>で表す。
+<ul>
+<li><span class="math inline">\(\mathcal{B}\)</span>は標本空間のうち「起こりうる結果」すべての集合である。<br>
+例えば上記のような例は含まれるが「奇数かつ偶数の目が出る」のような「起こり得ない結果」は含まれない。</li>
+<li>この <span class="math inline">\(\mathcal{B}\)</span>は、確率を定義する上で良い性質を持つ。
+<ul>
+<li>完全加法族(<span class="math inline">\(\sigma\)</span>加法族)であること。集合論的に測度を定義できるような集合と思えば、竹村数理統計を進める上ではそこまで問題にはならないと思う。</li>
+</ul></li>
+</ul></li>
+<li>上記で揃った<span class="math inline">\(\{\Omega, \mathcal{B}, P\}\)</span>を「確率空間」と呼ぶ。</li>
+<li>確率空間から実数全体<span class="math inline">\(\mathbb{R}\)</span>への写像を「確率変数」と呼ぶ。
+<ul>
+<li>確率変数<span class="math inline">\(X\)</span>はこれまた確率を扱う上で良い性質(逆写像が定義できる、等)を持つ。</li>
+<li>世の中の多くの「データ」と呼ばれるものは離散だが、別に実数全体の集合で定義しても辛くはないので、このまま推し進む。</li>
+</ul></li>
+</ul>
+<p>という雑な公理的確率論の整理をしておいて、これより細かく知りたい場合は別の本をあたろう。</p>
+</section>
+<section id="確率関数" class="level3">
+<h3 class="anchored" data-anchor-id="確率関数">確率関数</h3>
+<p><span class="math inline">\(X\)</span>を確率測度<span class="math inline">\(P\)</span>に突っ込んで、確率空間にそのまま組み込んで<span class="math inline">\(P(X=x)\)</span>と言うかたちで定義できる。<br>
+このあたりは僕も上手く整理できていないが、多分そういう都合の良い性質を持っているのだと思い込もう。<br>
+確率測度は<span class="math inline">\([0, 1]\)</span>の空間に事象を写す写像として定めているから「負の確率」にはならないし「確率が1以上」になることもない。直観的に考えて「全事象の確率」は1である。竹村数理統計における式2.5がそれ。<br>
+性質としては直観的にあたりまえ体操なので、証明は省こうと思う。証明を求める場合は公理から導く必要がある。</p>
+<p><span class="math display">\[\begin{equation}
+\left\{\,
+    \begin{aligned}
+        \sum_{x} P(X=x) = 1 \\
+        \int_x P(X=x) dx = 1
+    \end{aligned}
+\right .
+\end{equation}\]</span></p>
+</section>
 </section>
 </section>
 
