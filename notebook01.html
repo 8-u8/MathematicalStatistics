@@ -46,9 +46,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="数理統計学ノート" class="level1">
-<h1>数理統計学ノート</h1>
-<p>ここでは確率と期待値についての記述を行う</p>
+<p><a href="https://8-u8.github.io/MathematicalStatistics/">TOP</a> # 数理統計学ノート ここでは確率と期待値についての記述を行う</p>
 <section id="確率と確率変数" class="level2">
 <h2 class="anchored" data-anchor-id="確率と確率変数">確率と確率変数</h2>
 <p>実は竹村数理統計では明示的に事象を定義していないというか、<br>
@@ -93,8 +91,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>という雑な公理的確率論の整理をしておいて、これより細かく知りたい場合は別の本をあたろう。</p>
 </section>
-<section id="確率関数" class="level3">
-<h3 class="anchored" data-anchor-id="確率関数">確率関数</h3>
+<section id="確率関数竹村-p6p7" class="level3">
+<h3 class="anchored" data-anchor-id="確率関数竹村-p6p7">確率関数(竹村, p6~p7)</h3>
 <p><span class="math inline">\(X\)</span>を確率測度<span class="math inline">\(P\)</span>に突っ込んで、確率空間にそのまま組み込んで<span class="math inline">\(P(X=x)\)</span>と言うかたちで定義できる。<br>
 このあたりは僕も上手く整理できていないが、多分そういう都合の良い性質を持っているのだと思い込もう。<br>
 確率測度は<span class="math inline">\([0, 1]\)</span>の空間に事象を写す写像として定めているから「負の確率」にはならないし「確率が1以上」になることもない。直観的に考えて「全事象の確率」は1である。竹村数理統計における式2.5がそれ。<br>
@@ -107,7 +105,50 @@ ul.task-list li input[type="checkbox"] {
     \end{aligned}
 \right .
 \end{equation}\]</span></p>
+<p>以降、しばらくは離散の場合を考えられれば理解が苦しくないので、<br>
+確率にかんする関数は和記号で記述する。確率を実務で使う上では、<br>
+積分は和記号の連続化と見て差し支えないことにする。</p>
+<p>……もとい準備が間に合わないので、連続値への定式化は一旦飛ばすとも言う。</p>
 </section>
+<section id="累積分布関数竹村-p7p10" class="level3">
+<h3 class="anchored" data-anchor-id="累積分布関数竹村-p7p10">累積分布関数(竹村, p7~p10)</h3>
+<p>確率関数の累積和を「累積分布関数」という。Cumulative Distribution Functionを略して<br>
+「cdf」と書くこともある。cdfは以下のように定義される</p>
+<p><span class="math display">\[
+F(x) = P(X \leq x) = \sum_{y \leq x} p(y)
+\]</span></p>
+<p>離散においては、cdfは右連続となる。竹村の記述では極限の記述についてやや詳細に書いてあるが、<br>
+ここについては最悪読み飛ばしても理解がかなわない、ということはない。<br>
+連続においては、「<span class="math inline">\(x\)</span>がピッタリ特定の値をとる確率」は0となることに注意する。<br>
+竹村の記述では「無限の精度で……」という記述がある。極限や微分の定義を知っていれば、<br>
+ここについてはあまり困ることはないと思われる。</p>
+<p>【練習】</p>
+<p><span class="math inline">\(x \in \{0, 1\}\)</span>のときに確率1を取り、それ以外の領域では0となるような<br>
+一様分布のcdfを求め、その概形を書け。</p>
+<p>【答え】 頑張れ。</p>
+<p>何れにせよ、何らかの形で「累積分布関数の微分」を定義できれば、これが「確率密度関数」と呼ばれる。</p>
+<p><span class="math display">\[
+f(x) = F'(x) = \lim_{\epsilon \rightarrow 0}\frac{P(x \leq X \leq x +\epsilon)}{\epsilon}
+\]</span></p>
+<p>離散の場合は、特定の値を取る確率を定義できるためか、「確率質量関数」と呼ばれることもある。<br>
+確率質量関数はProbability Mass Functionを略してpmf、<br>
+確率密度関数は、Probability Density Functionを略してpdfと表記される。</p>
+<p>最後に正規化定数という考え方を簡単に。<br>
+<span class="math inline">\(f(x)\)</span>はpdfで、特定の関数<span class="math inline">\(h(x)\)</span>を<span class="math inline">\([0, 1]\)</span>の区間で値を取るように定数倍したものとして定義できる場合を考える。すなわち、</p>
+<p><span class="math display">\[
+f(x) = c \cdot h(x)
+\]</span></p>
+<p>を満たすような定数<span class="math inline">\(c\)</span>が存在する。これを正規化定数という。<br>
+竹村では基準化定数と言っているが、正規化定数のほうが一般的じゃないかなあ。<br>
+これは容易に解けて、</p>
+<p><span class="math display">\[
+c = \frac{1}{\int_{-\infty}^\infty h(x) dx}
+\]</span></p>
+<p>である。竹村にも記述があるので確かめよう。</p>
+<p>最後に、<span class="math inline">\(X \sim F\)</span>と書いて「Xは分布Fに従う」と呼ぶことをここでは約束する。<br>
+実務においては離散も連続もあまり意識しなくて良いし、実際統計検定においても、<br>
+一旦は「和記号の連続版が積分」という理解のまま、連続確率変数に関して議論しても<br>
+あんまり問題はない。厳密に数学的対象として扱う場合は、もちろんちゃんと考えなければならない。</p>
 </section>
 </section>
 
