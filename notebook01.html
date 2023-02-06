@@ -69,7 +69,13 @@ ul.task-list li input[type="checkbox"] {
 <li><span class="math inline">\(\Omega\)</span> の部分集合族 <span class="math inline">\(\mathcal{B}\)</span> を考えて、そこから<span class="math inline">\([0, 1]\)</span>への写像を確率測度といい、 <span class="math inline">\(P\)</span>で表す。
 <ul>
 <li><span class="math inline">\(\mathcal{B}\)</span>は標本空間のうち「起こりうる結果」すべての集合である。<br>
-例えば上記のような例は含まれるが「奇数かつ偶数の目が出る」のような「起こり得ない結果」は含まれない。</li>
+例えば上記のような例はしっかり含まれる。
+<ul>
+<li>サイコロの例で言えば<span class="math inline">\(\mathcal{B} = 2^\Omega\)</span>で扱って良い。ここで、<span class="math inline">\(2^\Omega\)</span>は<span class="math inline">\(\Omega\)</span>のべき集合を表す。</li>
+<li>「起こり得ない結果」も、何らかの条件のもとでは確率が定義できる。例えば「奇数かつ偶数」というような数の集合は存在しないが、<br>
+<span class="math inline">\({x|xは奇数 \land xは偶数}\)</span>となるような<span class="math inline">\(x\)</span>は空集合<span class="math inline">\(\phi\)</span>であるとみなし、確率0を与えるようにすれば良さそう。</li>
+<li>このへんは上手く整理できていないので、考えが変わるかもしれない。</li>
+</ul></li>
 <li>この <span class="math inline">\(\mathcal{B}\)</span>は、確率を定義する上で良い性質を持つ。
 <ul>
 <li>完全加法族(<span class="math inline">\(\sigma\)</span>加法族)であること。集合論的に測度を定義できるような集合と思えば、竹村数理統計を進める上ではそこまで問題にはならないと思う。</li>
@@ -78,7 +84,10 @@ ul.task-list li input[type="checkbox"] {
 <li>上記で揃った<span class="math inline">\(\{\Omega, \mathcal{B}, P\}\)</span>を「確率空間」と呼ぶ。</li>
 <li>確率空間から実数全体<span class="math inline">\(\mathbb{R}\)</span>への写像を「確率変数」と呼ぶ。
 <ul>
-<li>確率変数<span class="math inline">\(X\)</span>はこれまた確率を扱う上で良い性質(逆写像が定義できる、等)を持つ。</li>
+<li>確率変数<span class="math inline">\(X\)</span>はこれまた確率を扱う上で都合の良い性質を持つ。
+<ul>
+<li>逆写像を持つこととかだろうかと思ったら逆写像を持たないような確率変数も定義できるらしいので違う。</li>
+</ul></li>
 <li>世の中の多くの「データ」と呼ばれるものは離散だが、別に実数全体の集合で定義しても辛くはないので、このまま推し進む。</li>
 </ul></li>
 </ul>
@@ -89,12 +98,12 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(X\)</span>を確率測度<span class="math inline">\(P\)</span>に突っ込んで、確率空間にそのまま組み込んで<span class="math inline">\(P(X=x)\)</span>と言うかたちで定義できる。<br>
 このあたりは僕も上手く整理できていないが、多分そういう都合の良い性質を持っているのだと思い込もう。<br>
 確率測度は<span class="math inline">\([0, 1]\)</span>の空間に事象を写す写像として定めているから「負の確率」にはならないし「確率が1以上」になることもない。直観的に考えて「全事象の確率」は1である。竹村数理統計における式2.5がそれ。<br>
-性質としては直観的にあたりまえ体操なので、証明は省こうと思う。証明を求める場合は公理から導く必要がある。</p>
+以下の性質は、確率を実務で使うという立場である限りは無条件に正しさを受け入れて良いことにし、証明は省こうと思う。証明を求める場合は公理から導く必要があるが、意欲のある人にカバーしてもらおうと思う。</p>
 <p><span class="math display">\[\begin{equation}
 \left\{\,
     \begin{aligned}
-        \sum_{x} P(X=x) = 1 \\
-        \int_x P(X=x) dx = 1
+        \sum_{x} P(X=x) = 1 (xが離散のとき)\\
+        \int_x P(X=x) dx = 1(xが連続のとき)
     \end{aligned}
 \right .
 \end{equation}\]</span></p>
