@@ -150,6 +150,50 @@ c = \frac{1}{\int_{-\infty}^\infty h(x) dx}
 一旦は「和記号の連続版が積分」という理解のまま、連続確率変数に関して議論しても<br>
 あんまり問題はない。厳密に数学的対象として扱う場合は、もちろんちゃんと考えなければならない。</p>
 </section>
+<section id="確率変数の期待値と分付の特性値" class="level3">
+<h3 class="anchored" data-anchor-id="確率変数の期待値と分付の特性値">確率変数の期待値と分付の特性値</h3>
+<p>期待値は、以下のように定義される。和記号のみで記述するので、積分記号は竹村の該当箇所を見るか、 脳内補完して欲しい。</p>
+<p><span class="math display">\[
+E[X] = \sum_{x}xp(x)
+\]</span></p>
+<p>記述統計のときの標本平均ともよく似ている。<span class="math inline">\(p(x) = 1/n\)</span>とおけばそれっぽい。<br>
+期待値は「線型性」を持つ。すなわち、<span class="math inline">\(E[a + bX] = a + bE[X]\)</span>。<br>
+これを示す。</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{aligned}
+        E[a + bX] = \sum_{x} (a+bx)p(x)\\
+        = \sum_{x} ap(x)+bxp(x)\\
+        = \sum_{x} ap(x) + \sum_{x}bxp(x)\\
+        = a \sum_{x} p(x) + b \sum_{x} xp(x) \\
+        = a + bE[X]
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>同様に2つの確率変数<span class="math inline">\((X, Y)\)</span>があったとき、その和の期待値について <span class="math display">\[
+E[X+Y] = E[X] + E[Y]
+\]</span></p>
+<p>を満たす。多次元の確率変数は3章なので、証明はその人に任せようと思う。</p>
+<p>分散は以下のように定義される。ここで定義される分散は「母分散」である。</p>
+<p><span class="math display">\[
+Var[X] = \sum_{x}(x-\mu)^2p(x)
+\]</span> ただし<span class="math inline">\(\mu = E[X]\)</span>である。<br>
+ここで「なんか似ているな」と思ったら結構鋭い。一般に<span class="math inline">\(X\)</span>の変数変換<span class="math inline">\(g(X)\)</span>を考えるとき、<span class="math inline">\(E[g(X)] = \sum_{x}g(x)p(x)\)</span>とおけば、$g(X) = (X-)^2 $と考えると<br>
+分散の定義式を表現できる。</p>
+<p>特に、<span class="math inline">\(X\)</span>のべき乗<span class="math inline">\(g(x) = X^k\)</span>を考えて、その期待値<span class="math inline">\(E[g(X)] = E[X^k]\)</span>を原点周りの<span class="math inline">\(k\)</span>次のモーメントと呼ぶ。また、<span class="math inline">\(g(x) = (X-\mu)^k\)</span>を<span class="math inline">\(k\)</span>次の平均周りのモーメントとして定義される。つまり</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{aligned}
+        \mu_k' = E[X^k] \\
+        \mu_k = E[(X-\mu)^k]
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>ということ。</p>
+<p>【練習】<br>
+竹村の問2.1を求めよ。</p>
+<p>【答え】<br>
+原点周りのモーメントは、平均周りのモーメントを使って表現できるし、<br>
+平均周りのモーメントも、原点周りのモーメントと平均を用いて表現できる。<br>
+計算は頑張れ。</p>
+<p>指示関数その他は次。</p>
+</section>
 </section>
 
 </main>
