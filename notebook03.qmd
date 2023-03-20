@@ -11,6 +11,71 @@ $(X, Y)$が同時に発生する事象を考える。
 両手で同時にコイントスをする事を考えるのも良い。このとき表が出たら1、裏が出たら0と定義すれば、  
 実際に$\mathbb{R}^2$(これは二次元の実数の集合を意味する)に含まれる分布として定義できる。  
 
+### 同時分布と周辺分布
+ChatGPTに「同時分布のようなグラフを描くRのコードを描いて！」ってお願いして、  
+一部を少し加工しました。
+
+
+```{r}
+# define density mixture function
+dens_mixture <- function(x, y, mu = 0, sigma = 1) {
+    out <- dnorm(x, mean = mu, sd = sigma) * dnorm(y, mean = mu, sd = sigma)
+    out
+}
+# code below was written by ChatGPT
+# Create a grid of x and y values
+x <- seq(-4, 4, length.out = 100)
+y <- seq(-4, 4, length.out = 100)
+z <- outer(x, y, dens_mixture)
+
+# Create the 3D plot
+persp(x, y, z,
+    a = 30, phi = 30, expand = 0.5,
+    col = "lightblue", ltheta = 120, shade = 0.3,
+    xlab = "X", ylab = "Y", zlab = "probability"
+)
+
+```
+
+周辺分布は、例えば以下。上と右にあるのが周辺分布。  
+ChatGPTに丸投げしたらあんまりいい感じにならなかったので、割と自分で書き直した。
+
+```{r}
+# Load the necessary libraries
+set.seed(523)
+library(ggplot2)
+library(ggExtra)
+
+# define density mixture function
+dens_mixture <- function(x, y, mu = 0, sigma = 1) {
+    out <- dnorm(x, mean = mu, sd = sigma) * dnorm(y, mean = mu, sd = sigma)
+    out
+}
+# Define the normal distribution parameters
+mu <- 0
+sigma <- 1
+
+# Create a dataset with x and y values
+x <- rnorm(1000, mu, sigma)
+y <- rnorm(1000, mu, sigma)
+df <- data.frame(x = x, y = y)
+# Create the 2D plot with marginal distributions
+p <- ggplot2::ggplot(df) +
+    ggplot2::geom_density2d(aes(x = x, y = y), geom = "line") +
+    ggplot2::geom_point(aes(x = x, y = y)) +
+    ggplot2::scale_fill_gradient(low = "white", high = "blue")
+
+ggExtra::ggMarginal(p, type = "density")
+
+
+```
+
+
+
+### 条件付き分布
+
+
+
 
 ## ヤコビアンと畳み込み
 多分人生で一番難しい
