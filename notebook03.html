@@ -118,23 +118,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="同時分布と条件付き分布">同時分布と条件付き分布</h2>
 <p><span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>を2つの確率変数とおく。この2つの確率変数の組<span class="math inline">\((X, Y)\)</span>を確率変数ベクトルと呼び、 <span class="math inline">\((X, Y)\)</span>が同時に発生する事象を考える。<br>
 たとえば10円玉のコイントスの実現値を<span class="math inline">\(X\)</span>、100円玉のコイントスの実現値を<span class="math inline">\(Y\)</span>として、<br>
-両手で同時にコイントスをする事を考えるのも良い。このとき表が出たら1、裏が出たら0と定義すれば、<br>
-実際に<span class="math inline">\(\mathbb{R}^2\)</span>(これは二次元の実数の集合を意味する)に含まれる分布として定義できる。</p>
+両手で同時にコイントスをする事を考えるのも良い。このとき表が出たら1、裏が出たら0と定義すれば、 確率変数は実際に<span class="math inline">\(\mathbb{R}^2\)</span>(これは二次元の実数の集合を意味する)に属する要素の上で定義される。</p>
 <section id="同時分布と周辺分布の理論" class="level3">
 <h3 class="anchored" data-anchor-id="同時分布と周辺分布の理論">同時分布と周辺分布の理論</h3>
 <p>同時分布について、まず離散確率変数を考える。<br>
-基本的には単変量の分布を考えることと同様に考えることができる <span class="math display">\[
+基本的には単変量の分布を考えることと同様に考えることができる。<br>
+「同時」の名前は、<span class="math inline">\((X,Y)\)</span>に関する具体的な値が一緒に与えられることを意味する。<br>
+このとき、同時確率は <span class="math display">\[
 p(x, y) = P(X = x, Y = y)
-\]</span> だし、累積分布関数も <span class="math display">\[
+\]</span> で与えられるし、累積分布関数は <span class="math display">\[
 F(x, y) = P(X \leq x, Y \leq y)
 \]</span> で定義できる。基本は1次元確率分布と同様に定義できる。<br>
-他の本でも基本は同様であるか<a href="https://amzn.asia/d/eRgNHzehttps://amzn.asia/d/eRgNHze">[久保川]</a>、最初から一般の<span class="math inline">\(d\)</span>次元確率変数の分布について定義をして、<br>
-<span class="math inline">\(d=1\)</span>や<span class="math inline">\(d=2\)</span>のときを特別な場合として記述しているような書籍もある<a href="https://8-u8.github.io/MathematicalStatistics/notebook03.html">[清水]</a>。</p>
+他の本でも基本は同様であるか<a href="https://amzn.asia/d/eRgNHzehttps://amzn.asia/d/eRgNHze">[久保川]</a>、最初から一般の<span class="math inline">\(d\)</span>次元確率変数の分布について定義をして、 <span class="math inline">\(d=1\)</span>や<span class="math inline">\(d=2\)</span>のときを特別な場合として記述しているような書籍もある<a href="https://8-u8.github.io/MathematicalStatistics/notebook03.html">[清水]</a>。</p>
+<p><span class="math inline">\(X\)</span>の周辺分布は、同時に起こりうる<span class="math inline">\(Y\)</span>の値すべてを考慮したときの確率で、<br>
+以下のように表現される。</p>
+<p><span class="math display">\[
+F_X(x) = P(X \leq x, Y \leq \infty)=\sum_{x \in X}^x\sum_{y \in Y}^{\infty}p(x, y)
+\]</span></p>
+</section>
+<section id="クロス表と同時分布" class="level3">
+<h3 class="anchored" data-anchor-id="クロス表と同時分布">クロス表と同時分布</h3>
+<p>もっと気楽に考えるとクロス集計表は同時分布の離散表現に近い。<br>
+行和/列和がそれぞれ同時分布である。これがわかるとまあまあ集計時の見通しが良くなると思うし、<br>
+クロス集計表が同時分布であるという雰囲気を感じるだけで「なんでこの表で検定ができるんだ？」<br>
+というところにふんわりとした直感が働くようになるとも思う。</p>
 </section>
 <section id="同時分布と周辺分布の可視化" class="level3">
 <h3 class="anchored" data-anchor-id="同時分布と周辺分布の可視化">同時分布と周辺分布の可視化</h3>
-<p>ChatGPTに「同時分布のようなグラフを描くRのコードを描いて！」ってお願いして、<br>
-一部を少し加工しました。</p>
+<p>ChatGPTに「同時分布のようなグラフを描くRのコードを描いて！」ってお願いしてみる。<br>
+出てきた結果の一部は見にくい書き方をしていたので、ちょっと勝手に添削をしています。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define density mixture function</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dens_mixture <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">sigma =</span> <span class="dv">1</span>) {</span>
@@ -195,6 +207,9 @@ unknown parameters: `geom`</code></pre>
 </section>
 <section id="条件付き分布" class="level3">
 <h3 class="anchored" data-anchor-id="条件付き分布">条件付き分布</h3>
+<p>条件付き分布は、<span class="math inline">\((X, Y)\)</span>のうち、どちらか一方が与えられたという状態で、<br>
+もう一方が実現する確率を表現する。つまり「同時」ではないし、<br>
+お互いが何らかの法則を持って連動している。</p>
 </section>
 </section>
 <section id="ヤコビアンと畳み込み" class="level2">
