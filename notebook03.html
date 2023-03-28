@@ -210,6 +210,77 @@ unknown parameters: `geom`</code></pre>
 <p>条件付き分布は、<span class="math inline">\((X, Y)\)</span>のうち、どちらか一方が与えられたという状態で、<br>
 もう一方が実現する確率を表現する。つまり「同時」ではないし、<br>
 お互いが何らかの法則を持って連動している。</p>
+<p><span class="math inline">\(X=x\)</span>が与えられたときの<span class="math inline">\(Y\)</span>の条件付き確率は以下のように記述される。</p>
+<p><span class="math display">\[
+P(Y=y|X=x) = \frac{P(X=x, Y=y)}{P(X=x)} = \frac{P(X=x, Y=y)}{\sum_{y \in Y}p(x, y)}
+\]</span></p>
+<p>あるいは以下のほうが使いやすいかも</p>
+<p><span class="math display">\[
+P(X=x, Y=y) = P(Y=y|X=x)P(X=x)
+\]</span></p>
+<p>もっというと、ここからベイズの定理が出てくる</p>
+<p><span class="math display">\[
+P(Y=y|X=x) = \frac{P(X=x|Y=y)P(Y=y)}{P(X=x)}
+\]</span></p>
+<p>解釈すると、同時分布を周辺分布で割る、ということになる。<br>
+2値変数の同時分布は、以下のクロス表で表現できる。<br>
+いつも見るクロス表だと、表側(行)が主語、表頭(列)が述語になるので、<br>
+「Y=0の場合は、X=0になる確率は」という解釈をすることもなくはないが、<br>
+これがクロス表で妥当な解釈であると考えられる場合は、後述の独立性を<br>
+仮定として受け入れられるとき。</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>X=0</th>
+<th>X=1</th>
+<th>Yの周辺分布</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Y=0</td>
+<td><span class="math inline">\(P(X=0,Y=0)\)</span></td>
+<td><span class="math inline">\(P(X=1,Y=0)\)</span></td>
+<td><span class="math inline">\(P(Y=0)\)</span></td>
+</tr>
+<tr class="even">
+<td>Y=1</td>
+<td><span class="math inline">\(P(X=0,Y=1)\)</span></td>
+<td><span class="math inline">\(P(X=1,Y=1)\)</span></td>
+<td><span class="math inline">\(P(Y=1)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Xの周辺分布</td>
+<td><span class="math inline">\(P(X=0)\)</span></td>
+<td><span class="math inline">\(P(X=1)\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>が互いに独立であるとは、お互いの条件付き確率がもう一方に依存しないこと。<br>
+つまり、上記の掛け算の方の式から、<span class="math inline">\(P(Y=y|X=x) = P(Y=y)\)</span>が保証されること。 <span class="math display">\[
+P(X=x, Y=y) = P(Y=y)P(X=x)
+\]</span></p>
+<p>ここまでなんとなく離散でやってきたけど基本的には連続化するアプローチは<br>
+そんなに不自然で理解の難しい内容ではない。微小な定数<span class="math inline">\(\Delta x\)</span>を用いて、<br>
+0に向けて極限をとることで表現がなされる。<br>
+周辺分布は興味のない方を積分すれば得られるし、同時分布は重積分で得られる。</p>
+<p>連続値における条件付き密度関数は、測度論的には注意が必要らしいけど、<br>
+一旦踏み込むのを辞める。</p>
+<blockquote class="blockquote">
+<p>この条件付き密度関数の定義は直観的には正しいものであるが、測度論的には実はより<br>
+注意深い議論が必要である。それは連続分布について最初に述べたように<span class="math inline">\(X\)</span>が連続な<br>
+確率変数ならば任意の<span class="math inline">\(x\)</span>について<span class="math inline">\(X=x\)</span>という事象の確率は0であるから、条件付き密度関数が どのような意味で定義できるかが明らかではないからである。</p>
+</blockquote>
+</section>
+<section id="条件付き独立" class="level3">
+<h3 class="anchored" data-anchor-id="条件付き独立">条件付き独立</h3>
+<p>条件付き独立はよく因果推論、及び因果探索で議論される事が多い気がする。<br>
+3つの確率変数<span class="math inline">\(X\)</span>、<span class="math inline">\(Y\)</span>、<span class="math inline">\(Z\)</span>があり、<span class="math inline">\(Z=z\)</span>が与えられたときに、<span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>が条件付き独立であるとは、 <span class="math display">\[
+f_{X,Y|Z=z}(X,Y) = f_{X|Z=z}(x)f_{Y|Z=z}(y)
+\]</span></p>
+<p>を満たすことをいう。</p>
 </section>
 </section>
 <section id="ヤコビアンと畳み込み" class="level2">
