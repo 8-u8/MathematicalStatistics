@@ -139,7 +139,7 @@ F_X(x) = P(X \leq x, Y \leq \infty)=\sum_{x \in X}^x\sum_{y \in Y}^{\infty}p(x, 
 <section id="クロス表と同時分布" class="level3">
 <h3 class="anchored" data-anchor-id="クロス表と同時分布">クロス表と同時分布</h3>
 <p>もっと気楽に考えるとクロス集計表は同時分布の離散表現に近い。<br>
-行和/列和がそれぞれ同時分布である。これがわかるとまあまあ集計時の見通しが良くなると思うし、<br>
+行和/列和がそれぞれ<s>同時</s>周辺分布である。これがわかるとまあまあ集計時の見通しが良くなると思うし、<br>
 クロス集計表が同時分布であるという雰囲気を感じるだけで「なんでこの表で検定ができるんだ？」<br>
 というところにふんわりとした直感が働くようになるとも思う。</p>
 </section>
@@ -282,10 +282,182 @@ f_{X,Y|Z=z}(X,Y) = f_{X|Z=z}(x)f_{Y|Z=z}(y)
 \]</span></p>
 <p>を満たすことをいう。</p>
 </section>
+<section id="todo-条件付き独立の応用場面について" class="level3">
+<h3 class="anchored" data-anchor-id="todo-条件付き独立の応用場面について">Todo: 条件付き独立の応用場面について</h3>
+<p>ごめん一旦ヤコビアン先でいい？</p>
+</section>
 </section>
 <section id="ヤコビアンと畳み込み" class="level2">
 <h2 class="anchored" data-anchor-id="ヤコビアンと畳み込み">ヤコビアンと畳み込み</h2>
-<p>多分人生で一番難しい</p>
+<p>多次元の連続確率変数を扱うとき、確率変数の変換と、それに連動する(事がある)<br>
+密度関数の変換が重要なテクニックとなってくる。<br>
+テクニックの大本は、多重積分における変数変換なので基本的には数学。<br>
+わかる人にはわかるだろうが僕にはわからないので結果の整理だけでも竹村準拠でやっていく。<br>
+が、実際にヤコビアンで解く例はちょっとわかりにくいので、他の本を参照する。<br>
+なお、ヤコビアンの理解には以下の書籍も参考にしている</p>
+<ul>
+<li><a href="https://www.asakura.co.jp/detail.php?book_code=11633">永田靖『統計学のための数学入門30講』</a>
+<ul>
+<li>まあ初手ここだよね。一応事実のみが書かれている</li>
+</ul></li>
+<li><a href="https://www.chart.co.jp/goods/item/sugaku/39940.php">加藤文元『数件講座シリーズ 大学教養微分積分』</a>
+<ul>
+<li>しっかり数学のテクニックを学ぶなら、最近の良い参考書だと思う</li>
+</ul></li>
+</ul>
+<section id="準備" class="level3">
+<h3 class="anchored" data-anchor-id="準備">準備</h3>
+<p><span class="math inline">\(X = (X_1,X_2, ..., X_n)\)</span>を<span class="math inline">\(n\)</span>次元の確率<strong>変数</strong>ベクトルとし(竹村本では「確率ベクトル」)、<br>
+その同時密度関数を<span class="math inline">\(f_X(x)\)</span>とする。この確率変数ベクトルに変換<span class="math inline">\(g\)</span>を噛ませて、その結果を<span class="math inline">\(Y\)</span>、<br>
+すなわち<span class="math inline">\(Y = g(X) = (g_1(x), g_2(x), ..., g_n(x))\)</span>として考える。<br>
+この<span class="math inline">\(g\)</span>にはいくつか設定がある。</p>
+<ul>
+<li>すべての<span class="math inline">\(i=1,2,...,n\)</span>に対して<span class="math inline">\(g_i(x)\)</span>は連続微分可能</li>
+<li>すべての<span class="math inline">\(x \in X\)</span>に対し、<span class="math inline">\(g(X)\)</span>が1対1対応</li>
+<li>連続微分可能な逆関数<span class="math inline">\(g^{-1}(y)\)</span>が存在する</li>
+</ul>
+<p>逆関数の存在条件とその証明については一旦議論を省く。</p>
+<p>解きたい問題は、<span class="math inline">\(X\)</span>の密度関数がわかっているとき、どうやって<span class="math inline">\(Y\)</span>の分布関数を求めようか？ということ。<br>
+ここでヤコビアンが必要になるらしい。</p>
+</section>
+<section id="ヤコビ行列" class="level3">
+<h3 class="anchored" data-anchor-id="ヤコビ行列">ヤコビ行列</h3>
+<p>自然言語でいえば、「<span class="math inline">\(x\)</span>の各要素を<span class="math inline">\(y\)</span>の各要素で偏微分したときの偏微分係数を成分にした行列」で、<br>
+提案者の Carl Gustav Jacob <strong>J</strong>acobi にちなんだ<span class="math inline">\(J\)</span>で表現されることが多い。 <span class="math inline">\(x = g^{-1}(y) = h(y)\)</span>と置いたときに、</p>
+<p><span class="math display">\[\begin{equation}
+J(\frac{\partial{x}}{\partial{y}})=
+
+\left(
+    \begin{matrix}
+        \frac{\partial{h_1(y)}}{\partial{y_1}} &amp; ... &amp;
+        \frac{\partial{h_n(y)}}{\partial{y_1}} \\
+        \vdots &amp; \ddots &amp; \vdots \\
+        \frac{\partial{h_1(y)}}{\partial{y_n}} &amp; ... &amp;
+        \frac{\partial{h_n(y)}}{\partial{y_n}} \\
+    \end{matrix}
+\right)
+
+\end{equation}\]</span></p>
+<p>というような行列<span class="math inline">\(J\)</span>をヤコビ行列(あるいは関数行列)と呼ぶことが多い。</p>
+<p>ヤコビ行列の特殊なパターンが勾配ベクトルという考え方は別段間違いではない。<br>
+多変数実数関数<span class="math inline">\(f(x_1, x_2, ..., x_n)\)</span>を各<span class="math inline">\(x_i\)</span>で微分したものを並べたベクトルなので、<br>
+まあまあ近いものとして捉えて良いと思う。</p>
+<p>参考: <a href="https://for-spring.com/analysis/partialdifferentiation-4/#toc4">ヤコビ行列？勾配(grad)？</a></p>
+</section>
+<section id="ヤコビアン" class="level3">
+<h3 class="anchored" data-anchor-id="ヤコビアン">ヤコビアン</h3>
+<p>ヤコビアンとして表現されるのはヤコビ行列の行列式のことである。<br>
+統計学だと時々「ヘッシアン」とか出てくるが、これもヘッセ行列の行列式なので、<br>
+そういうものだと思ってよい。でもハミルトニアンやラプラシアン、ラグランジアンとかも出てくるが、<br>
+こっちは別に行列式ではなさそう。</p>
+<p>ヤコビ行列の行列式を<span class="math inline">\(det(J)\)</span>とおくと、<span class="math inline">\(Y\)</span>の密度関数は</p>
+<p><span class="math display">\[
+f_Y(y) = f_X(g^{-1}(y))|det(\frac{\partial{x}}{\partial{y}})| = \\
+f_X(x)|\frac{\partial{x}}{\partial{y}}|
+\]</span></p>
+<p>と書ける。ややこしい書き方をしているが「元の確率変数の密度関数になんぼか重みをつけてスケールを揃えよう」という雰囲気を感じてくれれば、そこまでお気持ちとして理解不能な変換ではないように思う。</p>
+<p>問題はこの変換によってえられた密度関数<span class="math inline">\(f_Y(y)\)</span>がちゃんと確率密度関数になっているんだろうか？<br>
+というところだが、どうやら大丈夫そう(3.21式と3.22式との間)。</p>
+</section>
+<section id="畳み込み" class="level3">
+<h3 class="anchored" data-anchor-id="畳み込み">畳み込み</h3>
+<p>畳み込みによる確率分布の導出は統計検定だとだいぶお作法と化している事が多い。<br>
+竹村本は割と回りくどいことをしているので、以下は久保川などの流儀も混ぜておく。<br>
+<span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>を、密度関数が<span class="math inline">\(f_X(x)\)</span>、<span class="math inline">\(g_Y(y)\)</span>で与えられる独立な確率変数とする。<br>
+<span class="math inline">\(Z = X + Y\)</span>という変数変換を行ったときの密度関数を<span class="math inline">\(f\)</span>と<span class="math inline">\(g\)</span>で表現することを考える。<br>
+<span class="math inline">\(W = X\)</span>とおいて、変換を整理すると</p>
+<p><span class="math display">\[\begin{equation}
+\left\{\,
+    \begin{aligned}
+        X = W \\
+        Y = Z - W
+    \end{aligned}
+\right .
+\end{equation}\]</span></p>
+<p>と変換できる(逆関数)。ヤコビ行列を計算すると</p>
+<p><span class="math display">\[\begin{equation}
+
+\left(
+    \begin{matrix}
+        \frac{\partial{x}}{\partial{w}} &amp; \frac{\partial{x}}{\partial{z}} \\
+        \frac{\partial{y}}{\partial{w}} &amp; \frac{\partial{y}}{\partial{z}}
+    \end{matrix}
+\right)
+=
+\left(
+    \begin{matrix}
+        1 &amp; 0 \\
+        -1 &amp; 1
+    \end{matrix}
+\right)
+\end{equation}\]</span> で、ヤコビアンが1になる。ここが、嬉しい。</p>
+<p>よって、<span class="math inline">\(W\)</span>と<span class="math inline">\(Z\)</span>の同時分布が<span class="math inline">\(f(w)g(z-w)(×1)\)</span>ということがわかる(独立)ので、<br>
+あとはこれを<span class="math inline">\(w\)</span>について積分すれば、<span class="math inline">\(z\)</span>の密度関数を算出できる。</p>
+<p>もちろん、非線形な変換を与えたりすると、ヤコビアンは1にはならないので、<br>
+ここに重みが加わったりする。</p>
+<p>これの良いところは、分布関数がわかっていれば積分で計算ができること。<br>
+<span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>がそれぞれ独立であれば、同じ分布でなくても問題はない。<br>
+正規分布の再生性などもこれで証明ができる。<br>
+これ以外の方法には特性関数を使う方法があるが、特性関数が明示的に表現できない分布には使えないこともある。</p>
+</section>
+<section id="正規化定数の算出" class="level3">
+<h3 class="anchored" data-anchor-id="正規化定数の算出">正規化定数の算出</h3>
+<p>次回でお願い。</p>
+<section id="標準正規分布" class="level4">
+<h4 class="anchored" data-anchor-id="標準正規分布">(標準)正規分布</h4>
+<p>正規分布の正規化定数は<span class="math inline">\(1 / \sqrt(2\pi)\)</span>として表されるが、<br>
+「どこから<span class="math inline">\(\pi\)</span>が出てきたんだ！？」と思うことが多い。</p>
+<p>標準正規分布の密度関数はもう覚えていると思うが以下である。</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{\sqrt{2\pi}}\exp{\{-\frac{x^2}{2}\}}
+\]</span></p>
+<p>この<span class="math inline">\(\frac{1}{\sqrt{2\pi}}\)</span>を導出する。</p>
+<p><span class="math inline">\(\frac{1}{c} = \int \exp{\{ - \frac{x^2}{2}\}}dx\)</span>とおいて、<span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>がそれぞれ独立に <span class="math inline">\(c\exp{\{ - \frac{x^2}{2}\}}\)</span>に従う確率変数とする。テクニックとしては極座標変換を行う。<br>
+すなわち<span class="math inline">\((X, Y)\)</span>を以下の通りに極座標表示し、<span class="math inline">\((r, \theta)\)</span>の同時密度関数を求める。</p>
+<p><span class="math display">\[\begin{equation}
+\left\{\,
+    \begin{aligned}
+        X = r \cos{\theta} \\
+        Y = r \sin{\theta}
+    \end{aligned}
+\right .
+\end{equation}\]</span></p>
+<p>すると、ヤコビ行列とヤコビアンをこんな感じで計算ができる。</p>
+<p><span class="math display">\[\begin{equation}
+% ヤコビ行列
+    \left(
+        \begin{matrix}
+            \frac{\partial{x}}{\partial{r}} &amp; \frac{\partial{x}}{\partial{\theta}} \\
+            \frac{\partial{y}}{\partial{r}} &amp; \frac{\partial{y}}{\partial{\theta}}
+        \end{matrix}
+    \right)
+    =
+    \left(
+        \begin{matrix}
+            \cos{\theta} &amp; -r\sin{\theta} \\
+            \sin{\theta} &amp; r\cos{\theta}
+        \end{matrix}
+    \right) \\
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+% ヤコビアン
+    |\det{J}| = r \cos^2{\theta} + r \sin^2{\theta} \\
+    = r(\cos^2{\theta} + \sin^2{\theta}) = r
+\end{equation}\]</span></p>
+<p>したがって、同時分布は</p>
+<p><span class="math display">\[\begin{equation}
+% rと\thetaの同時分布
+    f(r, \theta) = f_X(r \cos{\theta})f_Y(r \sin{\theta})r = r c^2 \exp{\{- \frac{r^2}{2}\}}
+\end{equation}\]</span> こいつを<span class="math inline">\(r, \theta\)</span>について積分すると、実質<span class="math inline">\(r\)</span>についての積分なので</p>
+<p><span class="math display">\[
+c^2 \int_0^{\infty} r \exp{\{- \frac{r^2}{2}\}} dr = 1
+\]</span></p>
+<p>これを解くと<span class="math inline">\(\frac{1}{\sqrt{2\pi}}\)</span>になる。</p>
+</section>
+<section id="ガンマ分布" class="level4">
+<h4 class="anchored" data-anchor-id="ガンマ分布">ガンマ分布</h4>
+</section>
+</section>
 </section>
 <section id="条件付き期待値" class="level2">
 <h2 class="anchored" data-anchor-id="条件付き期待値">条件付き期待値</h2>
