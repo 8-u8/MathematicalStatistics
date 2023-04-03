@@ -290,14 +290,15 @@ f_{X,Y|Z=z}(X,Y) = f_{X|Z=z}(x)f_{Y|Z=z}(y)
 <p>RCTにおける因果推論でよくあるのはセレクションバイアス。<br>
 上記のサイトでは、重症である人が処置群に、軽症だと統制群に割り当てられやすい場合を想定。<br>
 結果的にシンプソンのパラドックスめいた因果効果の錯誤が得られてしまっている。</p>
-<p>つまりここでは処置の有無を<span class="math inline">\(X\)</span>、薬効を<span class="math inline">\(Y\)</span>、重症度を<span class="math inline">\(Z\)</span>とおいたときに、<span class="math inline">\(Z\)</span>の条件付き</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://nounai-librarian.com/wp-content/uploads/2022/07/image-3-1024x526.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">画像引用1</figcaption><p></p>
 </figure>
 </div>
-<p>これを「重症度」という条件</p>
+<p>ここでは処置の有無を<span class="math inline">\(T\)</span>、薬効を<span class="math inline">\(Y\)</span>、重症度を<span class="math inline">\(X\)</span>とおいたときに、<span class="math inline">\(X\)</span>を条件づけた上で、 <span class="math inline">\(T\)</span>と<span class="math inline">\(Y\)</span>が独立であることが保証できれば、因果効果を良く推定できると保証できそう。<br>
+この<span class="math inline">\(X\)</span>は1つでなくてもよく、複数あっても良い。ロジスティック回帰を使った傾向スコア法は、<br>
+(多分)これに基づいているんだと思う</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://nounai-librarian.com/wp-content/uploads/2022/07/image-5-1024x573.png" class="img-fluid figure-img"></p>
