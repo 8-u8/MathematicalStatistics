@@ -282,9 +282,28 @@ f_{X,Y|Z=z}(X,Y) = f_{X|Z=z}(x)f_{Y|Z=z}(y)
 \]</span></p>
 <p>を満たすことをいう。</p>
 </section>
-<section id="todo-条件付き独立の応用場面について" class="level3">
-<h3 class="anchored" data-anchor-id="todo-条件付き独立の応用場面について">Todo: 条件付き独立の応用場面について</h3>
-<p>ごめん一旦ヤコビアン先でいい？</p>
+<section id="条件付き独立の応用場面について" class="level3">
+<h3 class="anchored" data-anchor-id="条件付き独立の応用場面について">条件付き独立の応用場面について</h3>
+<p>主に統計的因果推論、統計的因果探索に応用される。<br>
+超絶ざっくり言うと、例えばランダム化比較試験を考える。<br>
+参考：<a href="https://nounai-librarian.com/causalintro2/#%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E7%8B%AC%E7%AB%8B%E6%80%A7">因果推論の用語を整理する② -識別性の条件-</a></p>
+<p>RCTにおける因果推論でよくあるのはセレクションバイアス。<br>
+上記のサイトでは、重症である人が処置群に、軽症だと統制群に割り当てられやすい場合を想定。<br>
+結果的にシンプソンのパラドックスめいた因果効果の錯誤が得られてしまっている。</p>
+<p>つまりここでは処置の有無を<span class="math inline">\(X\)</span>、薬効を<span class="math inline">\(Y\)</span>、重症度を<span class="math inline">\(Z\)</span>とおいたときに、<span class="math inline">\(Z\)</span>の条件付き</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nounai-librarian.com/wp-content/uploads/2022/07/image-3-1024x526.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">画像引用1</figcaption><p></p>
+</figure>
+</div>
+<p>これを「重症度」という条件</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nounai-librarian.com/wp-content/uploads/2022/07/image-5-1024x573.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">引用画像2</figcaption><p></p>
+</figure>
+</div>
 </section>
 </section>
 <section id="ヤコビアンと畳み込み" class="level2">
@@ -402,11 +421,12 @@ f_X(x)|\frac{\partial{x}}{\partial{y}}|
 </section>
 <section id="正規化定数の算出" class="level3">
 <h3 class="anchored" data-anchor-id="正規化定数の算出">正規化定数の算出</h3>
-<p>次回でお願い。</p>
+<p>ガンマ分布とベータ分布は次回でお願い。</p>
 <section id="標準正規分布" class="level4">
 <h4 class="anchored" data-anchor-id="標準正規分布">(標準)正規分布</h4>
 <p>正規分布の正規化定数は<span class="math inline">\(1 / \sqrt(2\pi)\)</span>として表されるが、<br>
-「どこから<span class="math inline">\(\pi\)</span>が出てきたんだ！？」と思うことが多い。</p>
+「どこから<span class="math inline">\(\pi\)</span>が出てきたんだ！？」と思うことが多い。<br>
+ここではとりあえず導出をするが、なんで極座標表示が有効であるのかは未だに謎。</p>
 <p>標準正規分布の密度関数はもう覚えていると思うが以下である。</p>
 <p><span class="math display">\[
 f(x) = \frac{1}{\sqrt{2\pi}}\exp{\{-\frac{x^2}{2}\}}
