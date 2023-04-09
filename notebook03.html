@@ -480,9 +480,49 @@ c^2 \int_0^{\infty} r \exp{\{- \frac{r^2}{2}\}} dr = 1
 </section>
 </section>
 </section>
-<section id="条件付き期待値" class="level2">
-<h2 class="anchored" data-anchor-id="条件付き期待値">条件付き期待値</h2>
-<p>世界一難しい</p>
+<section id="多次元分布の期待値" class="level2">
+<h2 class="anchored" data-anchor-id="多次元分布の期待値">多次元分布の期待値</h2>
+<p>多次元確率分布の期待値はだいたい1次元と同じ。 <span class="math inline">\((X,Y)\)</span>の実現値の関数を<span class="math inline">\(g(x,y)\)</span>とおくと、特に離散の場合は以下。</p>
+<p><span class="math display">\[
+E(g(X, Y)) = \sum_{x \in X}\sum_{y \in Y} g(x,y)p(x, y)
+\]</span></p>
+<p>多次元確率分布になると現れる概念に共分散がある。<br>
+<span class="math inline">\(\mu_X = E(X)\)</span>、<span class="math inline">\(\mu_Y = E(Y)\)</span>とおくと、共分散<span class="math inline">\(Cov(X, Y)\)</span>は以下のように定義される。</p>
+<p><span class="math display">\[
+Cov(X, Y) = \sigma_{X,Y} = E((X-\mu_X)(Y-\mu_Y))
+\]</span></p>
+<p>むしろこっちのほうが重要かもしれない。</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{aligned}
+    Cov(X,Y) = E((X - \mu_X)(Y - \mu_Y)) \\
+    = E(XY -X\mu_Y -Y\mu_X + \mu_X\mu_Y) \\
+    = E(XY) - E(X)E(Y) - E(X)E(Y) + E(X)E(Y)
+    = E(XY) - E(X)E(Y)
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>相関係数はいわば「共分散の標準化」みたいなもん。</p>
+<p><span class="math display">\[
+Corr(X, Y) = \frac{\sigma_{X,Y}}{\sigma_X \sigma_Y} = \frac{Cov(X,Y)}{Var(X)Var(Y)}
+\]</span></p>
+<p>相関係数のとりうる範囲は-1～1までだが、証明ができる。<br>
+一応コーシー・シュワルツの不等式からも証明できるが、<br>
+今回はゆるくベクトルと余弦の関係から証明を考える。<br>
+確率変数ベクトル<span class="math inline">\(X\)</span>、<span class="math inline">\(Y\)</span>の平均からの偏差ベクトルを<span class="math inline">\(s_X = X-\mu_X\)</span>、<span class="math inline">\(s_Y = Y-\mu_Y\)</span>とおく。<br>
+共分散は<span class="math inline">\(s_X\)</span>と<span class="math inline">\(s_Y\)</span>との内積として表現できるし、分散はそれぞれのノルムとして表現できる。<br>
+偏差ベクトルのなす角を<span class="math inline">\(\theta\)</span>とおくと、</p>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+    Cov(X,Y) = s_X \cdot s_Y \\
+    Var(X) = \|s_X\|\\
+    Var(Y) = \|s_Y\|\\
+    \Rightarrow Corr(X, Y) = \frac{s_X \cdot s_Y}{\|s_X\|\|s_Y\|} = \cos{\theta}
+\end{aligned}
+\end{equation}\]</span></p>
+<p>余弦の定義から、<span class="math inline">\(-1 \leq \cos{\theta} \leq 1\)</span>であるから、相関係数の値の範囲を証明できた。</p>
+<p>実のところ、相関と因果が違うように、相関がないことと、その2変数が独立であることもまた違う。<br>
+より具体的には、「2変数<span class="math inline">\(X\)</span>、<span class="math inline">\(Y\)</span>が独立ならば、この2変数は無相関である」は証明できるが、<br>
+この逆(無相関ならば独立である)は必ずしも成り立たない。例えば<span class="math inline">\(X=Y^2\)</span>を考えればよい。<br>
+独立性と無相関との関係としては、以下。</p>
 </section>
 <section id="主な分布" class="level2">
 <h2 class="anchored" data-anchor-id="主な分布">主な分布</h2>
