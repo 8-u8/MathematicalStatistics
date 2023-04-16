@@ -480,8 +480,8 @@ c^2 \int_0^{\infty} r \exp{\{- \frac{r^2}{2}\}} dr = 1
 </section>
 </section>
 </section>
-<section id="多次元分布の期待値" class="level2">
-<h2 class="anchored" data-anchor-id="多次元分布の期待値">多次元分布の期待値</h2>
+<section id="多次元分布の期待値と分散共分散" class="level2">
+<h2 class="anchored" data-anchor-id="多次元分布の期待値と分散共分散">多次元分布の期待値と分散、共分散</h2>
 <p>多次元確率分布の期待値はだいたい1次元と同じ。 <span class="math inline">\((X,Y)\)</span>の実現値の関数を<span class="math inline">\(g(x,y)\)</span>とおくと、特に離散の場合は以下。</p>
 <p><span class="math display">\[
 E(g(X, Y)) = \sum_{x \in X}\sum_{y \in Y} g(x,y)p(x, y)
@@ -523,9 +523,37 @@ Corr(X, Y) = \frac{\sigma_{X,Y}}{\sigma_X \sigma_Y} = \frac{Cov(X,Y)}{Var(X)Var(
 より具体的には、「2変数<span class="math inline">\(X\)</span>、<span class="math inline">\(Y\)</span>が独立ならば、この2変数は無相関である」は証明できるが、<br>
 この逆(無相関ならば独立である)は必ずしも成り立たない。例えば<span class="math inline">\(X=Y^2\)</span>を考えればよい。<br>
 独立性と無相関との関係としては、以下。</p>
+<p><span class="math inline">\(E(XY) = E(X)E(Y)\)</span></p>
+<p>確率変数の和の分散の公式、つまり確率変数<span class="math inline">\(X,Y\)</span>を使って<span class="math inline">\(Z=X+Y\)</span>なる変換をしたときのZの分散を考える。<br>
+(期待値は<span class="math inline">\(E(X+Y)=E(X)+E(Y)\)</span>がどんなときにも成り立つ)</p>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+    Var(Z) = E[(Z-E[Z])^2] = E[Z^2-2ZE[Z] - E[Z]^2] \\
+    = E[(X+Y)^2 - 2(X+Y)E[X+Y] + E[X+Y]^2] \\
+    = E[(X-E[X]+Y-E[Y])^2] \\
+    = Var(X) + 2Cov(X,Y) + Var(Y)
+\end{aligned}
+\end{equation}\]</span></p>
+<p>よって<span class="math inline">\(Var(X+Y) = Var(X) + Var(Y)\)</span>が成り立つのは、<span class="math inline">\(X,Y\)</span>が独立なときに限る。<br>
+それ以外のときは必ず共分散の分を考慮しなければならない。<br>
+統計的推測にあたってはこの一般化である以下等式はめっちゃ重要らしい。 <span class="math display">\[
+Var(X_1+X_2+\dots+X_b) = \sum_{i=1}^n Var(X_i)
+\]</span></p>
+<section id="期待値行列と分散共分散行列" class="level3">
+<h3 class="anchored" data-anchor-id="期待値行列と分散共分散行列">期待値行列と分散共分散行列</h3>
+<p>ここは「このように書く」という話。 <span class="math inline">\(\textbf{X} = (X_1, X_2, \dots, X_n)^T\)</span>を確率変数ベクトルといい、<br>
+期待値ベクトル<span class="math inline">\(E[\textbf{X}] = (E[X_1],E[X_2],\dots,E[X_n])^T\)</span>を期待値ベクトルとして定義する。</p>
+<p>この確率ベクトルの分散<span class="math inline">\(Var(X_i)\)</span>と、<span class="math inline">\(X_i,X_j\)</span>の共分散を<span class="math inline">\(\sigma_{i,j}\)</span>としたときに、<br>
+これを行列形式にしたやつ、すなわち <span class="math display">\[\begin{equation}
+\left(
+\begin{matrix}
+        Var(X_1) &amp; \sigma_{1,2} &amp; \dots &amp; \sigma{1, n} \\
+        \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+        \sigma_{n, 1} &amp; \sigma_{n,2} &amp; \dots &amp; Var(X_n)
+    \end{matrix}
+\right)
+\end{equation}\]</span> ## 主な分布</p>
 </section>
-<section id="主な分布" class="level2">
-<h2 class="anchored" data-anchor-id="主な分布">主な分布</h2>
 <section id="多項分布" class="level3">
 <h3 class="anchored" data-anchor-id="多項分布">多項分布</h3>
 <p>わからん</p>
