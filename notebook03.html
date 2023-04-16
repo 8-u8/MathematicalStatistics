@@ -544,7 +544,8 @@ Var(X_1+X_2+\dots+X_b) = \sum_{i=1}^n Var(X_i)
 <p>ここは「このように書く」という話。 <span class="math inline">\(\textbf{X} = (X_1, X_2, \dots, X_n)^T\)</span>を確率変数ベクトルといい、<br>
 期待値ベクトル<span class="math inline">\(E[\textbf{X}] = (E[X_1],E[X_2],\dots,E[X_n])^T\)</span>を期待値ベクトルとして定義する。</p>
 <p>この確率ベクトルの分散<span class="math inline">\(Var(X_i)\)</span>と、<span class="math inline">\(X_i,X_j\)</span>の共分散を<span class="math inline">\(\sigma_{i,j}\)</span>としたときに、<br>
-これを行列形式にしたやつ、すなわち <span class="math display">\[\begin{equation}
+これを行列形式にしたやつ、すなわち以下の<span class="math inline">\(n\)</span>次正方行列</p>
+<p><span class="math display">\[\begin{equation}
 \left(
 \begin{matrix}
         Var(X_1) &amp; \sigma_{1,2} &amp; \dots &amp; \sigma{1, n} \\
@@ -552,15 +553,45 @@ Var(X_1+X_2+\dots+X_b) = \sum_{i=1}^n Var(X_i)
         \sigma_{n, 1} &amp; \sigma_{n,2} &amp; \dots &amp; Var(X_n)
     \end{matrix}
 \right)
-\end{equation}\]</span> ## 主な分布</p>
+\end{equation}\]</span></p>
+<p>を分散共分散行列という</p>
 </section>
-<section id="多項分布" class="level3">
-<h3 class="anchored" data-anchor-id="多項分布">多項分布</h3>
-<p>わからん</p>
+<section id="多次元確率分布の母関数" class="level3">
+<h3 class="anchored" data-anchor-id="多次元確率分布の母関数">多次元確率分布の母関数</h3>
+<p>「このように書く」ということになっているので省略。</p>
 </section>
-<section id="多変量正規分布" class="level3">
-<h3 class="anchored" data-anchor-id="多変量正規分布">多変量正規分布</h3>
-<p>やさしい</p>
+<section id="分布の加法性" class="level3">
+<h3 class="anchored" data-anchor-id="分布の加法性">分布の加法性</h3>
+<p>有名どころで、証明も難しくないので、省略。</p>
+</section>
+<section id="回帰分析と条件付き期待値条件付き分散" class="level3">
+<h3 class="anchored" data-anchor-id="回帰分析と条件付き期待値条件付き分散">回帰分析と条件付き期待値、条件付き分散</h3>
+<p>条件付き期待値は、条件付き分布を使った<span class="math inline">\(y\)</span>の期待値。 <span class="math display">\[
+E[Y|X] = E[Y | X = x] = \int_{-\infty}^{\infty} yf_{Y|X=x}(y)dy
+\]</span></p>
+<p>条件付き期待値は、<span class="math inline">\(E[Y]\)</span>が存在するならほとんどすべての<span class="math inline">\(x\)</span>に対して<span class="math inline">\(E[Y|X=x]\)</span>が存在する。<br>
+より一般に<span class="math inline">\(g(X, Y)\)</span>に対し、<span class="math inline">\(X=x\)</span>が与えられたときの条件付き期待値 <span class="math display">\[
+E[g(X, Y)|X] = E[g(X, Y) | X = x] = \int_{-\infty}^{\infty} g(x,y)f_{Y|X=x}(y)dy
+\]</span></p>
+<p>条件付き期待値の面白い動きは<span class="math inline">\(X\)</span>をいろいろに変えたときの関数<span class="math inline">\(h(x)=E[Y|X=x]\)</span>として考えることができるし、発展して<span class="math inline">\(X\)</span>の分布を考えることで<span class="math inline">\(h(x)\)</span>を確率変数と捉えることも可能。</p>
+<p>このとき「全確率の公式」あるいは「繰り返し期待値の公式」として、いかが成り立つ <span class="math display">\[
+E[h(X)] = E[E[Y|X]]のとき、E[Y] = E[E[Y|X]]
+\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+E[Y] = \int \int yf(x,y)dydx = \int (\int{y\frac{f(x,y)}{f_X(x)}}dy)f_X(x)dx \\
+= \int{E[Y|X]f_X(x)} dx
+\end{aligned}
+\end{equation}\]</span></p>
+<p>ここで<span class="math inline">\(f_{Y|X}(y) = \frac{f(x,y)}{f_X(x)}\)</span>のハズ。条件付き分布の定義から。</p>
+<p>条件付き分散は以下。</p>
+<p><span class="math display">\[
+Var(Y|X) = E[(Y-E[Y|X])^2 | X]
+\]</span></p>
+<p>詳細は本誌を見てほしいが、Yの分散が「Yの条件付き分散の期待値」と「Yの条件付き期待値の分散」に分解されるという以下の性質は重要。なぜなら2.13や2.14でこれを使うので。</p>
+<p><span class="math display">\[
+Var(Y) = E[Var(Y|X)]+Var(E[Y|X])
+\]</span></p>
 </section>
 </section>
 </section>
