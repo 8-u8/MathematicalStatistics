@@ -54,11 +54,27 @@ ul.task-list li input[type="checkbox"] {
 <p>統計的決定理論は、推定(7章)、検定(8章)といった統計的推測を統一的に論じるために、Wald(1950)が導入した「考え方」 検定と推定を統一的に論じるために、抽象度の高い議論をする。とっつきにくいけどうまくやることで見通しが良くなる</p>
 <section id="用語と定義" class="level2">
 <h2 class="anchored" data-anchor-id="用語と定義">用語と定義</h2>
+<section id="標本空間パラメータ空間" class="level3">
+<h3 class="anchored" data-anchor-id="標本空間パラメータ空間">標本空間・パラメータ空間</h3>
 <blockquote class="blockquote">
 <p>統計的推測は標本<span class="math inline">\(X=(X_1, ..., X_n)\)</span>に基づいて行われる。</p>
 </blockquote>
 <p>4章の冒頭にあるように、統計的推測とは、得られたデータに基づいて母集団について何かしらの結論を得ること 定義：標本空間<span class="math inline">\(\mathscr{X}\)</span>とは、標本<span class="math inline">\(X\)</span>の実現値が属する集合である</p>
 <p><span class="math inline">\(n\)</span>次元の確率変数<span class="math inline">\(X=(X_1, ..., X_n)\)</span>の場合、標本空間<span class="math inline">\(\mathscr{X}\)</span>は<span class="math inline">\(n\)</span>次元ユークリッド空間<span class="math inline">\(\mathbb{R}^n\)</span>を取れば良い←なぜ？</p>
+<p>標本空間として何を考えるかはどの確率変数に注目するかにも依存する。<br>
+<span class="math inline">\(n\)</span>個のベルヌーイ変数の場合標本空間は<span class="math inline">\(mathbb{R}^n\)</span>だが、成功数<span class="math inline">\(Y=\sum_{i=1}^nX_i\)</span>二注目すれば、標本空間は<span class="math inline">\(\mathbb{R}\)</span>で良い(1次元実数でOK)。</p>
+<p>統計的推測においては<span class="math inline">\(X \in \mathscr{X}\)</span>の従う分布族＝統計的モデルを想定する←なにそれ？</p>
+<p>【例】<span class="math inline">\(X_i \sim N(\mu, \sigma^2), i = 1,2,...,n, i.i.d\)</span></p>
+<p>このとき、分布族は<span class="math inline">\(\{N(\mu, \sigma^2) | -\infty &lt; \mu &lt; \infty, 0 &lt; \sigma^2 &lt; \infty\}\)</span></p>
+<p>内包的記法めいた表記だが「<span class="math inline">\(\mu\)</span>と<span class="math inline">\(\sigma^2\)</span>がそれぞれこの範囲で定義される正規分布<span class="math inline">\(N(\mu, \sigma^2)\)</span>全体の集合」と解釈できる。</p>
+<p>これをさらに一般化し、パラメータ<span class="math inline">\(\theta\)</span>を持つ分布を<span class="math inline">\(P_\theta\)</span>とおく。パラメータの取りうる値の集合を<span class="math inline">\(\Theta\)</span>とすると、これをパラメータ空間(母数空間)と呼ぶ。<br>
+正規分布を例に取ると、パラメータ空間は<span class="math inline">\(\Theta = \{(\mu, \sigma^2) | -\infty &lt; \mu &lt; \infty, 0 &lt; \sigma^2 &lt; \infty\}\)</span>となる。</p>
+<p>【練習】二項分布の場合の記述（p92）についてなぜそう言えるか検討せよ。</p>
+<p>パラメータは多くの場合「未知」である（未知パラメータ）。だが、実務上既知とみなして推定に必要な情報量を減らすとかはよくやる。この場合「既知母数」と呼ぶ</p>
+</section>
+<section id="統計家と決定空間そして損失" class="level3">
+<h3 class="anchored" data-anchor-id="統計家と決定空間そして損失">統計家と決定空間、そして損失</h3>
+</section>
 </section>
 </section>
 
