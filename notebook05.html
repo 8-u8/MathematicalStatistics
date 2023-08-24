@@ -62,7 +62,7 @@ ul.task-list li input[type="checkbox"] {
 <p>4章の冒頭にあるように、統計的推測とは、得られたデータに基づいて母集団について何かしらの結論を得ること 定義：標本空間<span class="math inline">\(\mathscr{X}\)</span>とは、標本<span class="math inline">\(X\)</span>の実現値が属する集合である</p>
 <p><span class="math inline">\(n\)</span>次元の確率変数<span class="math inline">\(X=(X_1, ..., X_n)\)</span>の場合、標本空間<span class="math inline">\(\mathscr{X}\)</span>は<span class="math inline">\(n\)</span>次元ユークリッド空間<span class="math inline">\(\mathbb{R}^n\)</span>を取れば良い←なぜ？</p>
 <p>標本空間として何を考えるかはどの確率変数に注目するかにも依存する。<br>
-<span class="math inline">\(n\)</span>個のベルヌーイ変数の場合標本空間は<span class="math inline">\(mathbb{R}^n\)</span>だが、成功数<span class="math inline">\(Y=\sum_{i=1}^nX_i\)</span>二注目すれば、標本空間は<span class="math inline">\(\mathbb{R}\)</span>で良い(1次元実数でOK)。</p>
+<span class="math inline">\(n\)</span>個のベルヌーイ変数の場合標本空間は<span class="math inline">\(\mathbb{R}^n\)</span>だが、成功数<span class="math inline">\(Y=\sum_{i=1}^nX_i\)</span>二注目すれば、標本空間は<span class="math inline">\(\mathbb{R}\)</span>で良い(1次元実数でOK)。</p>
 <p>統計的推測においては<span class="math inline">\(X \in \mathscr{X}\)</span>の従う分布族＝統計的モデルを想定する←なにそれ？</p>
 <p>【例】<span class="math inline">\(X_i \sim N(\mu, \sigma^2), i = 1,2,...,n, i.i.d\)</span></p>
 <p>このとき、分布族は<span class="math inline">\(\{N(\mu, \sigma^2) | -\infty &lt; \mu &lt; \infty, 0 &lt; \sigma^2 &lt; \infty\}\)</span></p>
@@ -74,6 +74,38 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="統計家と決定空間そして損失" class="level3">
 <h3 class="anchored" data-anchor-id="統計家と決定空間そして損失">統計家と決定空間、そして損失</h3>
+<p>定義：統計家(Statistician)<br>
+統計的な手法を用いて未知母数について何らかの判断を行う人。</p>
+<p>定義：決定(Decision) <span class="math inline">\(d\)</span><br>
+統計家のおこなう判断あるいは行動</p>
+<p>【例】統計的仮説検定<br>
+統計的検定は、帰無仮説(または対立仮説)を「棄却」するか、「受容」するかの2つの「決定」が考えられる。</p>
+<p>定義：決定空間 <span class="math inline">\(D\)</span><br>
+決定<span class="math inline">\(d\)</span>の集合</p>
+<p>【例】統計的仮説検定<br>
+統計的仮説検定における決定空間<span class="math inline">\(D = \{棄却, 受容\}\)</span></p>
+<p>【例】点推定 点推定の場合、統計家の決定は<span class="math inline">\(\hat{\theta}\)</span>を良く推定することであり、決定空間とパラメータ空間<span class="math inline">\(\Theta\)</span>は同値<span class="math inline">\(D=\Theta\)</span>。</p>
+<p>定義：損失関数<span class="math inline">\(L(\theta, d)\)</span><br>
+真のパラメータが<span class="math inline">\(\theta\)</span>であり、統計家が特定の決定<span class="math inline">\(d\)</span>を行ったときに、<br>
+統計家が被る損失の大きさを表す関数。<br>
+<strong>機械学習等における損失関数とは英語まで一緒だが、概念的に異なる点に注意</strong></p>
+<p>統計的仮説検定、統計的推定の目的は、統計家にとって、平均的に損失の少ない決定を行うことであり、この点で統一的に「決定理論」としての枠組みで議論することができる。</p>
+<p>点推定の例：(5.1)式のような二乗誤差、絶対誤差などで、推定値と真の値の乖離を評価できる。</p>
+<p>検定の例：(5.2)式のように、決定空間<span class="math inline">\(D=\{棄却, 受容\}\)</span>を実数空間<span class="math inline">\(\{0, 1\}\)</span>に写す写像を(脳内で)考えて、0-1損失によって評価すると良い</p>
+<p>統計家は決定<span class="math inline">\(d\)</span>を観測値(標本)<span class="math inline">\(X\)</span>に基づいて選ぶので、決定<span class="math inline">\(d\)</span>は<span class="math inline">\(X\)</span>の関数<span class="math inline">\(\delta(X)\)</span>で表現できる。</p>
+<p>定義：決定関数、または決定方式<span class="math inline">\(\delta(X)\)</span><br>
+標本空間から決定空間に写す写像</p>
+<p><span class="math inline">\(\delta: \mathscr{X} \rightarrow D\)</span></p>
+<p>のこと。</p>
+<p>決定関数は(標本<span class="math inline">\(X\)</span>における)すべての実現値<span class="math inline">\(x\)</span>に対して取るべき決定<span class="math inline">\(d = \delta(x)\)</span>を定めるような関数である。</p>
+<blockquote class="blockquote">
+<p>上は標本<span class="math inline">\(X\)</span>ということにしたけど、これ標本空間<span class="math inline">\(\mathscr{X}\)</span>なのかな。</p>
+</blockquote>
+<p>【例】標本平均を決定関数として表せ。<br>
+標本平均を<span class="math inline">\(\bar{x}\)</span>とおくと、<span class="math inline">\(\delta(x) = \bar{x}\)</span></p>
+</section>
+<section id="先に進む前に頑健性" class="level3">
+<h3 class="anchored" data-anchor-id="先に進む前に頑健性">先に進む前に：頑健性</h3>
 </section>
 </section>
 </section>
