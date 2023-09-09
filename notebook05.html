@@ -88,8 +88,9 @@ ul.task-list li input[type="checkbox"] {
 <p>定義：損失関数<span class="math inline">\(L(\theta, d)\)</span><br>
 真のパラメータが<span class="math inline">\(\theta\)</span>であり、統計家が特定の決定<span class="math inline">\(d\)</span>を行ったときに、<br>
 統計家が被る損失の大きさを表す関数。<br>
-<strong>機械学習等における損失関数とは英語まで一緒だが、概念的に異なる点に注意</strong></p>
-<p>統計的仮説検定、統計的推定の目的は、統計家にとって、平均的に損失の少ない決定を行うことであり、この点で統一的に「決定理論」としての枠組みで議論することができる。</p>
+<strong>機械学習等における損失関数とは英語まで一緒だが、概念的に異なる点に注意</strong><br>
+ここでの損失関数はパラメータとパラメータ真値との間に生まれる損失関数だが、<br>
+機械学習は予測値と真値の間に生まれる損失関数である。 統計的仮説検定、統計的推定の目的は、統計家にとって、平均的に損失の少ない決定を行うことであり、この点で統一的に「決定理論」としての枠組みで議論することができる。</p>
 <p>点推定の例：(5.1)式のような二乗誤差、絶対誤差などで、推定値と真の値の乖離を評価できる。</p>
 <p>検定の例：(5.2)式のように、決定空間<span class="math inline">\(D=\{棄却, 受容\}\)</span>を実数空間<span class="math inline">\(\{0, 1\}\)</span>に写す写像を(脳内で)考えて、0-1損失によって評価すると良い</p>
 <p>統計家は決定<span class="math inline">\(d\)</span>を観測値(標本)<span class="math inline">\(X\)</span>に基づいて選ぶので、決定<span class="math inline">\(d\)</span>は<span class="math inline">\(X\)</span>の関数<span class="math inline">\(\delta(X)\)</span>で表現できる。</p>
@@ -103,10 +104,77 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p>【例】標本平均を決定関数として表せ。<br>
 標本平均を<span class="math inline">\(\bar{x}\)</span>とおくと、<span class="math inline">\(\delta(x) = \bar{x}\)</span></p>
+<p>定義：リスク関数<br>
+<span class="math inline">\(\theta, \delta\)</span>を引数に持つ<span class="math inline">\(R(\theta, \delta)\)</span>がリスク関数であるとは、<br>
+<span class="math inline">\(R(\theta, \delta)\)</span>が損失関数の期待値であること</p>
+<p>【例】平均二乗誤差<br>
+<span class="math inline">\(R(\theta, \delta) = E_{\theta}[(\theta - \delta(X))^2]\)</span></p>
+<p>【練習】0-1損失のときのリスク関数を定義せよ</p>
 </section>
 <section id="先に進む前に頑健性" class="level3">
 <h3 class="anchored" data-anchor-id="先に進む前に頑健性">先に進む前に：頑健性</h3>
+<p>統計的決定理論では、決定関数の良し悪しをリスクの大小で比較するので、リスクの小さい決定関数が望ましい決定関数である。リスクはこの場合、リスク関数で評価する。リスク関数を使って望ましい決定関数を求める問題を統計的決定問題という。</p>
+<p>統計的推測では、決定関数の平均的な損失で評価される。ここで注意したいのは「平均的な損失」が、必ずしもここの問題での良さを保証するものとは限らない。</p>
+<p>リスク関数は、損失関数の選び方と母集団分布の仮定に依存する。<br>
+【例】最小二乗法が望ましい場合の損失関数と母集団分布</p>
+<p>こうした仮定の有無で、統計的決定とリスク評価に一貫性を持てるときは「頑健である」といい、<br>
+仮定の有無による推定方式の頑健さの度合いを「頑健性」という。</p>
 </section>
+</section>
+<section id="許容性" class="level2">
+<h2 class="anchored" data-anchor-id="許容性">許容性</h2>
+<p>統計的決定問題では、リスク関数を用いて決定方式を評価する。<br>
+決定方式<span class="math inline">\(\delta_1, \delta_2\)</span>があり、リスク関数<span class="math inline">\(R(\theta, \delta_i), i=1,2\)</span>を定義する場面を考える。<br>
+リスク関数を<span class="math inline">\(\theta\)</span>の関数として考えてみると(p96、図5.1と図5.2)、真のパラメータ<span class="math inline">\(\theta\)</span>が具体的にどんな値を取っているかによって、<span class="math inline">\(\delta_1\)</span>と<span class="math inline">\(\delta_2\)</span>のどちらが望ましいかは変わってくる。<strong>リスク関数を最小にするような決定方式は、すべての<span class="math inline">\(\theta\)</span>について一意の決定方式<span class="math inline">\(\hat{\theta}\)</span>が決まるわけではない</strong>。</p>
+<p>リスク関数を最小にするような決定関数が一意に決まらないとき、我々には2つの道がある</p>
+<ol type="1">
+<li>リスク関数を比較する。比較をするための新たな基準を導入する→ミニマックス基準(5.3節)</li>
+<li>考察の対象とする決定関数のクラスを制限し、その制限されたクラスの中で、リスクを一様に最小化する決定方式を求める。→不偏推定量、ネイマン・ピアソンの補題(7章、8章)</li>
+</ol>
+<p>【定義】「よい」あるいは「優越する」<br>
+2つの決定方式<span class="math inline">\(\delta_1, \delta_2\)</span>があり、「<span class="math inline">\(\delta_1\)</span>が<span class="math inline">\(\delta_2\)</span>よりよい(優越する)」とは、<br>
+以下の2つが成立することである。</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{aligned}
+    R(\theta.\delta_1) \leq R(\theta, \delta_2)\  for \ all \ \theta \\
+    R(\theta_0, \delta_1) &lt; R(\theta_0, \delta_2)\ for \ some \ \theta_0 \ exists
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>【練習】上記の数式を日本語でいうとどうなる？？</p>
+<p>「<span class="math inline">\(\delta_1\)</span>が<span class="math inline">\(\delta_2\)</span>よりよい(優越する)」ということを<span class="math inline">\(\delta_1 \succ \delta_2\)</span>とかく。 等号を許す場合、<span class="math inline">\(\delta_1 \succeq \delta_2\)</span>とも表現される。</p>
+<p>ある決定方式<span class="math inline">\(\delta\)</span>に対し、それを優越する決定方式<span class="math inline">\(\delta^*\)</span>が存在するなら、統計的決定問題の目的に照らせば<span class="math inline">\(\delta\)</span>を選択するのは合理的ではない。このときの<span class="math inline">\(\delta\)</span>は非許容的と呼ばれる。<br>
+逆に<span class="math inline">\(\delta\)</span>が許容的であるとは、<span class="math inline">\(\delta^* \succ \delta\)</span>を満たすような<span class="math inline">\(\delta^*\)</span>が存在しないことをいう。<br>
+許容性の定義は色々な形で表現できる(問5.1)。</p>
+<blockquote class="blockquote">
+<p>問5.1を示すことができれば、<span class="math inline">\(R(\theta, \tilde{\delta}) \leq R(\theta, \delta) \Rightarrow R(\theta, \tilde{\delta}) = R(\theta, \delta)\)</span> が許容性の定義として扱える（同値）。</p>
+</blockquote>
+<p>ある決定方式<span class="math inline">\(\delta\)</span>が許容的であるならば、特定の値<span class="math inline">\(\theta_0\)</span>で<span class="math inline">\(\delta\)</span>よりリスクの低い決定方式<span class="math inline">\(\tilde{\delta}\)</span>は、必ずどこか別の値<span class="math inline">\(\theta_1\)</span>で<span class="math inline">\(\delta\)</span>よりもリスクが大きくなければならない。</p>
+<blockquote class="blockquote">
+<p>これ意味わかる？今の私の解釈だと、上記の優越の定義の2つ目の式の話だと思ってる。</p>
+</blockquote>
+<p>許容性の概念は、最適性としては「弱い」。<br>
+【例】正規分布に従う<span class="math inline">\(X\)</span>を1つ観測して、そこからパラメータ <span class="math inline">\(\mu\)</span> を推定する。<br>
+決定方式を、<span class="math inline">\(\delta_0(X) \equiv 0\)</span>を満たすような<span class="math inline">\(\delta_0\)</span>として設定すると、<br>
+これは観測されるデータに関わらず、推定値を0にするような決定方式なので、統計的推測というよりは<br>
+普通にエイヤな決め打ち。でもこれは「許容的」。</p>
+<p><span class="math inline">\(\delta_0\)</span>のリスク関数を平均二乗誤差として考えると、</p>
+<p><span class="math display">\[
+R(\theta, \delta_0) = E[(\theta-0)^2] = \theta^2
+\]</span></p>
+<p><span class="math inline">\(\delta_0\)</span>が非許容的であると仮定すると、<span class="math inline">\(\delta^* \succ \delta_0\)</span>を満たすような<span class="math inline">\(\delta^*\)</span>が存在する、すなわちすべての<span class="math inline">\(\theta\)</span>に対して <span class="math inline">\(R(\theta.\delta^*) \leq R(\theta, \delta_0)\)</span> となるはず。<br>
+特に、<span class="math inline">\(\theta=0\)</span>のとき、リスク関数は<span class="math inline">\(\theta=0\)</span>と条件付けられた条件付き期待値である。つまり</p>
+<p><span class="math display">\[
+R(0, \delta^*) = E_{\theta=0}[\delta^*(X)^2] = 0
+\]</span></p>
+<p>が成り立つ必要があるが、決定関数の二乗は0以上<span class="math inline">\(\delta^*(X)^2 \geq 0\)</span>になるので、<br>
+<span class="math inline">\(P(\delta^*(X)=0 | \theta=0)=1\)</span>でなければならない。<br>
+<span class="math inline">\(\theta=0\)</span>のもとで<span class="math inline">\(X\)</span>の密度関数の取りうる値は<span class="math inline">\(\mathbb{R}^+\)</span>なので、そこから1つデータを持ってきて<span class="math inline">\(\theta = \mu\)</span>を推定する場合、ほとんどすべての<span class="math inline">\(x \in X\)</span>で<span class="math inline">\(\delta^*(x)=0\)</span>とならなければならない。<br>
+これはつまり<span class="math inline">\(\delta^*\)</span>のほとんどいたるところで<span class="math inline">\(\delta_0\)</span>に一致することと解釈できるが、これは<span class="math inline">\(\delta^*\)</span>が<span class="math inline">\(\delta_0\)</span>を優越する決定方式であり、<span class="math inline">\(\delta_0\)</span>が非許容的であるという仮定に矛盾するため、<span class="math inline">\(\delta_0\)</span>は許容的である。</p>
+<p>つまりエイヤでいい感じに当て推量した値でも、「なんかいい推定量」になるし、それに基づいた意思決定は許容性という観点から見たら合理的になってしまう、ということになる。我々は実務で半ばやむを得ずこの決定をしていることもあるだろうなあ。</p>
+<p>Steinのパラドックスという、「直観的に合理的である推定量が、じつは非許容的である(より良い推定量が存在する)」ことを厳密に数理的に証明した現象がある。</p>
+<blockquote class="blockquote">
+<p>Steinのパラドックスは縮小推定の話で、久保川本にも紙面が割かれている。ざっくりいうと「特定のセグメントに分けられる標本について、セグメント別の平均を取るよりも、全体平均方向に一定のバイアスがかかるように平均を取ったほうが、セグメント別の真の平均に対するより良い推定量となる」というお話。マルチレベルモデルなどにも応用されるので結構楽しい話ではある</p>
+</blockquote>
 </section>
 </section>
 
