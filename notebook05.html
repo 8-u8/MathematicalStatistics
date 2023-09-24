@@ -176,6 +176,34 @@ R(0, \delta^*) = E_{\theta=0}[\delta^*(X)^2] = 0
 <p>Steinのパラドックスは縮小推定の話で、久保川本にも紙面が割かれている。ざっくりいうと「特定のセグメントに分けられる標本について、セグメント別の平均を取るよりも、全体平均方向に一定のバイアスがかかるように平均を取ったほうが、セグメント別の真の平均に対するより良い推定量となる」というお話。マルチレベルモデルなどにも応用されるので結構楽しい話ではある</p>
 </blockquote>
 </section>
+<section id="ミニマックス基準とベイズ基準" class="level2">
+<h2 class="anchored" data-anchor-id="ミニマックス基準とベイズ基準">ミニマックス基準とベイズ基準</h2>
+<p>許容性の観点では、確率分布が要請するパラメータのとりうる値すべてにおいて「良い」決定関数を定められることができない場合が多い。そのため、何らかの方法でリスク関数を比較するための考え方(基準)を導入したい。</p>
+<ul>
+<li>ミニマックス基準：リスク関数の最大値を用いて決定関数を比較する</li>
+<li>ベイズ基準： 特定の事前分布<span class="math inline">\(\pi\)</span>を固定し、決定関数を<span class="math inline">\(\pi\)</span>の条件のもとで重み付けして比較する</li>
+</ul>
+<section id="ミニマックス基準" class="level3">
+<h3 class="anchored" data-anchor-id="ミニマックス基準">ミニマックス基準</h3>
+<p>特定の決定関数<span class="math inline">\(\delta\)</span>について、その決定関数の最大値を<span class="math inline">\(\bar{R}(\delta)= \sup_{\theta}(\theta, \delta)\)</span>と置く。2つの決定関数<span class="math inline">\(\delta_1\)</span>と<span class="math inline">\(\delta_2\)</span>の最大値を<span class="math inline">\(\bar{R}(\delta_1)\)</span>、<span class="math inline">\(\bar{R}(\delta_2)\)</span>とおいたとき、どちらか小さい方をより望ましいと考えるのが、ミニマックス基準。</p>
+<blockquote class="blockquote">
+<p>「最大値の最小値が『より良い』」なら「マックスミニ」じゃね？とも思う・・・</p>
+</blockquote>
+<p>【定義】ミニマックス決定関数</p>
+<p>ある決定関数<span class="math inline">\(\delta^*\)</span>がミニマックス決定関数であるとは、任意の決定関数<span class="math inline">\(\delta\)</span>について</p>
+<p><span class="math display">\[
+\bar{R}(\delta^*) \leq \bar{R}(\delta)
+\]</span></p>
+<p>を満たすことを言う。与えられた統計的決定問題に対して、ミニマックス決定関数を求める問題は必ずしも簡単ではないらしい。</p>
+<blockquote class="blockquote">
+<p>与えられた統計的決定問題に対して、ミニマックス決定関数を求める問題が必ずしも簡単ではない理由とは何だろうか。例を出しながら考えたい。</p>
+</blockquote>
+</section>
+<section id="ベイズ基準" class="level3">
+<h3 class="anchored" data-anchor-id="ベイズ基準">ベイズ基準</h3>
+<p>ミニマックス基準は最大値に注目するので保守的な意思決定になるが、ベイズ基準は平均的なリスクに注目する。</p>
+</section>
+</section>
 </section>
 
 </main>
