@@ -201,7 +201,16 @@ R(0, \delta^*) = E_{\theta=0}[\delta^*(X)^2] = 0
 </section>
 <section id="ベイズ基準" class="level3">
 <h3 class="anchored" data-anchor-id="ベイズ基準">ベイズ基準</h3>
-<p>ミニマックス基準は最大値に注目するので保守的な意思決定になるが、ベイズ基準は平均的なリスクに注目する。</p>
+<p>ミニマックス基準は最大値に注目するので保守的な意思決定になるが、ベイズ基準は平均的なリスクに注目する。<br>
+例：二項分布</p>
+<p><span class="math inline">\(\Theta = [0, 1]\)</span>とおきこのときのリスク関数<span class="math inline">\(R(\theta, \delta)\)</span>の積分<span class="math inline">\(\int_{0}^{1} R(\theta, \delta)d\theta\)</span>を考えると、これはリスク関数の面積と同じ(図5.3)。</p>
+<p>より一般に加重平均を考えても良い。<span class="math inline">\(\Theta\)</span>上の確率分布<span class="math inline">\(\pi\)</span>を考えて、この分布を使ってリスク関数に重みづける事を考えると、測度論の記法(ルベーグ積分でググれ)を使うことで以下のように表現できる</p>
+<p><span class="math display">\[
+r(\pi, \delta) = \int_{\Theta}R(\theta, \delta)\pi(d\theta)
+\]</span></p>
+<blockquote class="blockquote">
+<p><span class="math inline">\(\pi\)</span></p>
+</blockquote>
 </section>
 </section>
 </section>
