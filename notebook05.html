@@ -230,6 +230,47 @@ r(\pi, \delta_{\pi}) \leq r(\pi, \delta)
   \end{aligned}
   \right .
 \end{equation}\]</span></p>
+<p>で表現する。決定関数は<span class="math inline">\(\delta: \mathscr{X} \Rightarrow D\)</span>で表現されるので、<br>
+この場合決定関数を考えると、<span class="math inline">\(d_0 = \theta_0, d_1 = \theta_1, d^* = 1 - \theta_x, d_* = theta_{1-\theta_x}\)</span>の4通りが可能。この内<span class="math inline">\(d_0\)</span>はデータに関わらず<span class="math inline">\(\theta_0\)</span>と推定する決定、<span class="math inline">\(d_1\)</span>はデータに関わらず<span class="math inline">\(\theta_1\)</span>と推定する決定を指す。<span class="math inline">\(d^*\)</span>は<span class="math inline">\(X=1\)</span>のとき<span class="math inline">\(\theta_1\)</span>、<span class="math inline">\(X=0\)</span>のとき<span class="math inline">\(\theta_0\)</span>と推定する決定、<span class="math inline">\(d_0\)</span>は<span class="math inline">\(X=1\)</span>のとき<span class="math inline">\(\theta_0\)</span>、<span class="math inline">\(X=0\)</span>のとき<span class="math inline">\(\theta_1\)</span>と推定する決定を意味する。リスク関数はそれぞれの決定<span class="math inline">\(d\)</span>に対して</p>
+<p><span class="math display">\[\begin{equation}
+  R(\theta, d_0)= \left \{
+  \begin{aligned}
+    0, \rm{if} \ \ \theta = \theta_0 \\
+    1, \rm{if} \ \ \theta = \theta_1
+  \end{aligned}
+  \right .
+\end{equation}\]</span></p>
+<p><span class="math display">\[
+R(\theta, d_1) = 1 - R(\theta, d_0)
+\]</span></p>
+<p><span class="math display">\[\begin{equation}
+  R(\theta, d^*)= \left \{
+  \begin{aligned}
+    \theta_0, \rm{if} \ \ \theta = \theta_0 \\
+    1 - \theta_1, \rm{if} \ \ \theta = \theta_1
+  \end{aligned}
+  \right .
+\end{equation}\]</span></p>
+<p><span class="math display">\[
+R(\theta, d_*) = 1 - R(\theta, d^*)
+\]</span></p>
+<p>でそれぞれ表現できる。</p>
+<p>点<span class="math inline">\(R(\delta) = (R(\theta_0, \delta), R(\theta_1, \delta))\)</span>をリスク点と呼ぶ。<br>
+色々に仮定をおいて、図5.5を読もう。<br>
+決定関数を確率的に選ぶ、データに関わらず確率<span class="math inline">\(\alpha\)</span>で決定<span class="math inline">\(d_0\)</span>を、<span class="math inline">\(1-\alpha\)</span>で決定<span class="math inline">\(d^*\)</span>を適用するような決定方式<span class="math inline">\(d_\alpha\)</span>を確率化決定方式という</p>
+<blockquote class="blockquote">
+<p>たとえば<span class="math inline">\(\alpha = 0.05\)</span>とおいて、これを下回る場合に「対立仮説を受容」、上回る場合には「棄却」とするような決定方式があるよね。</p>
+</blockquote>
+<p><span class="math inline">\(d_\alpha\)</span>の決定関数は</p>
+<p><span class="math display">\[
+R(\alpha, d_\alpha) = \alpha R(\theta, d_0) + (1-\alpha)R(\theta, d^*)
+\]</span></p>
+<p>で表現できる(よな？)。決定方式<span class="math inline">\(\delta\)</span>全体に対して、<span class="math inline">\(\theta\)</span>のリスク関数に対応するリスク点は<br>
+図5.6の斜線部分で、その領域はリスクセットという。</p>
+<p><span class="math display">\[
+S = \{(R(\theta_0, \delta), R(\theta_1, \delta))|\delta \rm{は可能な決定方式全体}\}
+\]</span></p>
+<p>【練習問題】この確率化決定方式における許容性とミニマックス性を検討しよう。</p>
 </section>
 </section>
 
