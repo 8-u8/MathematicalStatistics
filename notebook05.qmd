@@ -213,7 +213,7 @@ $$
 $r(\pi, \delta)$を$\pi$のもとでのベイズリスクと呼ぶ。$\pi$を固定して、決定関数を$\pi$のもとでのベイズリスクで比較する。最も望ましい決定関数は、ベイズリスクを最小化するような$\delta_\pi$、すなわちすべての$\delta$に対して
 
 $$
-r(\pi, \delta_{\pi}) \ineq r(\pi, \delta)
+r(\pi, \delta_{\pi}) \leq r(\pi, \delta)
 $$
 
 を満たすような$\delta_\pi$である。これをベイズ決定関数という。
@@ -222,3 +222,13 @@ $$
 
 ## 確率化決定関数とリスクセット 
 
+標本空間を$\mathscr{X} = \{0, 1\}$とおいて、パラメータ空間$\Theta = \{\theta_0, \theta_1\}$とする。これは、ベルヌーイ確率変数を1回だけ観測し、その成功確率は$\theta_0$、$\theta_1$のどちらかというシンプルな設定で、決定空間$D$は$\Theta$と同値である（すなわちこれは推定の問題）という仮定を置く。損失関数は0-1損失
+
+\begin{equation}
+  L(\theta, d)= \left \{ 
+  \begin{aligned} 
+    0, \rm{if} \ \ \theta = d \\
+    1, \rm{otherwise}
+  \end{aligned}
+  \right .
+\end{equation}

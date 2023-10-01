@@ -209,9 +209,27 @@ R(0, \delta^*) = E_{\theta=0}[\delta^*(X)^2] = 0
 r(\pi, \delta) = \int_{\Theta}R(\theta, \delta)\pi(d\theta)
 \]</span></p>
 <blockquote class="blockquote">
-<p><span class="math inline">\(\pi\)</span></p>
+<p>通常の積分では<span class="math inline">\(\pi\)</span>が連続でなければ計算ができないが、測度論に基づくと、<span class="math inline">\(\pi\)</span>が離散でも連続でも、「積分」を計算できるようにする事ができる。</p>
 </blockquote>
+<p><span class="math inline">\(r(\pi, \delta)\)</span>を<span class="math inline">\(\pi\)</span>のもとでのベイズリスクと呼ぶ。<span class="math inline">\(\pi\)</span>を固定して、決定関数を<span class="math inline">\(\pi\)</span>のもとでのベイズリスクで比較する。最も望ましい決定関数は、ベイズリスクを最小化するような<span class="math inline">\(\delta_\pi\)</span>、すなわちすべての<span class="math inline">\(\delta\)</span>に対して</p>
+<p><span class="math display">\[
+r(\pi, \delta_{\pi}) \leq r(\pi, \delta)
+\]</span></p>
+<p>を満たすような<span class="math inline">\(\delta_\pi\)</span>である。これをベイズ決定関数という。</p>
+<p>ベイズ基準の考え方は事前分布の選び方で、ここは統計家のセンスに依存する。</p>
 </section>
+</section>
+<section id="確率化決定関数とリスクセット" class="level2">
+<h2 class="anchored" data-anchor-id="確率化決定関数とリスクセット">確率化決定関数とリスクセット</h2>
+<p>標本空間を<span class="math inline">\(\mathscr{X} = \{0, 1\}\)</span>とおいて、パラメータ空間<span class="math inline">\(\Theta = \{\theta_0, \theta_1\}\)</span>とする。これは、ベルヌーイ確率変数を1回だけ観測し、その成功確率は<span class="math inline">\(\theta_0\)</span>、<span class="math inline">\(\theta_1\)</span>のどちらかというシンプルな設定で、決定空間<span class="math inline">\(D\)</span>は<span class="math inline">\(\Theta\)</span>と同値である（すなわちこれは推定の問題）という仮定を置く。損失関数は0-1損失</p>
+<p><span class="math display">\[\begin{equation}
+  L(\theta, d)= \left \{
+  \begin{aligned}
+    0, \rm{if} \ \ \theta = d \\
+    1, \rm{otherwise}
+  \end{aligned}
+  \right .
+\end{equation}\]</span></p>
 </section>
 </section>
 
